@@ -20,7 +20,11 @@ const recApply = d => arg1 => {
 
 export const t7l = (head, ...rest) => {
   if (typeof head === "string") return () => head
-  if (Array.isArray(head))
-    return d => interleave(head, rest.map(recApply(d))).join("")
+  if (Array.isArray(head)) {
+    return d =>
+      interleave(head, rest.map(recApply(d)))
+        .join("")
+        .trim()
+  }
   return head
 }
