@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`t7l input type vs output type t7l(t7l\`\`) -> function 1`] = `"function"`;
+
+exports[`t7l input type vs output type t7l\`\` -> function 1`] = `"function"`;
+
+exports[`t7l input type vs output type t71(\`\`) -> function 1`] = `"function"`;
+
+exports[`t7l interop function t7l(t7l\`\${o=>o.a}\`)(o) -> 'abc' 1`] = `"abc"`;
+
+exports[`t7l interop function t7l\`\${o=>o.a}\`(o) -> 'abc' 1`] = `"abc"`;
+
+exports[`t7l interop more t7l t7l(t7l\`x\${t7l\`y\${o => o.a}\`}\`)(o) -> 'xyabc' 1`] = `"xyabc"`;
+
+exports[`t7l interop more t7l t7l\`x\${t7l\`y\${o=>o.a}\`}\`(o) => 'xyabc' 1`] = `"xyabc"`;
+
+exports[`t7l interop more t7l t7l\`x\${t7l\`y\${t7l\`z\${o=>o.a}\`}\`}\`(o) => 'xyabc' 1`] = `"xyzabc"`;
+
+exports[`t7l interop nested functions t7l\`\${fn}\`(o) -> 'abc' 1`] = `"abc"`;
+
+exports[`t7l no interop t7l('abc')() -> 'abc' 1`] = `"abc"`;
+
+exports[`t7l no interop t7l(t7l\`abc\`)() -> 'abc' 1`] = `"abc"`;
+
+exports[`t7l no interop t7l\`abc\`() -> 'abc' 1`] = `"abc"`;
+
+exports[`t7l only interop t7l(t7l\`\${'abc'}\`)() -> 'abc' 1`] = `"abc"`;
+
+exports[`t7l only interop t7l\`\${'abc'}\`() -> 'abc' 1`] = `"abc"`;

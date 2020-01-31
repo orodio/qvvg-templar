@@ -1,0 +1,27 @@
+{
+  "name": "@qvvg/templar",
+  "version": "0.0.0",
+  "description": "tagged template literals",
+  "author": "James Hunter <github@qv.vg>",
+  "license": "MIT",
+  "source": "src/templar.js",
+  "main": "dist/templar.js",
+  "module": "dist/templar.mjs",
+  "unpkg": "dist/templar.umd.js",
+  "jest": {
+    "transform": {
+      ".js": "jest-esm-transformer"
+    }
+  },
+  "devDependencies": {
+    "jest": "^25.1.0",
+    "jest-esm-transformer": "^1.0.0",
+    "microbundle": "^0.11.0"
+  },
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build": "microbundle",
+    "dev": "microbundle watch",
+    "test": "jest"
+  }
+}
