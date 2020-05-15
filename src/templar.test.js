@@ -1,4 +1,4 @@
-import {t7l, interleave} from "./templar"
+import {templar, interleave} from "./templar"
 
 describe("interleave", () => {
   ;[
@@ -32,46 +32,68 @@ const _ = (msg, a, b) => {
 }
 const t = v => typeof v
 
-describe("t7l", () => {
+describe("templar", () => {
   describe("input type vs output type", () => {
-    _("t7l`` -> function", t(t7l``))
-    _("t71(``) -> function", t(t7l("words")))
-    _("t7l(t7l``) -> function", t(t7l(t7l``)))
+    _("templar`` -> function", t(templar``))
+    _("t71(``) -> function", t(templar("words")))
+    _("templar(templar``) -> function", t(templar(templar``)))
   })
 
   describe("no interop", () => {
-    _("t7l`abc`() -> 'abc'", t7l`abc`())
-    _("t7l('abc')() -> 'abc'", t7l("abc")())
-    _("t7l(t7l`abc`)() -> 'abc'", t7l(t7l`abc`)())
+    _("templar`abc`() -> 'abc'", templar`abc`())
+    _("templar('abc')() -> 'abc'", templar("abc")())
+    _("templar(templar`abc`)() -> 'abc'", templar(templar`abc`)())
   })
 
   describe("only interop", () => {
-    _("t7l`${'abc'}`() -> 'abc'", t7l`${"abc"}`())
-    _("t7l(t7l`${'abc'}`)() -> 'abc'", t7l(t7l`${"abc"}`)())
+    _("templar`${'abc'}`() -> 'abc'", templar`${"abc"}`())
+    _("templar(templar`${'abc'}`)() -> 'abc'", templar(templar`${"abc"}`)())
   })
 
   describe("interop function", () => {
     const o = {a: "abc"}
-    _("t7l`${o=>o.a}`(o) -> 'abc'", t7l`${o => o.a}`(o))
-    _("t7l(t7l`${o=>o.a}`)(o) -> 'abc'", t7l(t7l`${o => o.a}`)(o))
+    _("templar`${o=>o.a}`(o) -> 'abc'", templar`${o => o.a}`(o))
+    _(
+      "templar(templar`${o=>o.a}`)(o) -> 'abc'",
+      templar(templar`${o => o.a}`)(o)
+    )
   })
 
-  describe("interop more t7l", () => {
+  describe("interop more templar", () => {
     const o = {a: "abc"}
-    _("t7l`x${t7l`y${o=>o.a}`}`(o) => 'xyabc'", t7l`x${t7l`y${o => o.a}`}`(o))
     _(
-      "t7l`x${t7l`y${t7l`z${o=>o.a}`}`}`(o) => 'xyabc'",
-      t7l`x${t7l`y${t7l`z${o => o.a}`}`}`(o)
+      "templar`x${templar`y${o=>o.a}`}`(o) => 'xyabc'",
+      templar`x${templar`y${o => o.a}`}`(o)
     )
     _(
-      "t7l(t7l`x${t7l`y${o => o.a}`}`)(o) -> 'xyabc'",
-      t7l(t7l`x${t7l`y${o => o.a}`}`)(o)
+      "templar`x${templar`y${templar`z${o=>o.a}`}`}`(o) => 'xyabc'",
+      templar`x${templar`y${templar`z${o => o.a}`}`}`(o)
+    )
+    _(
+      "templar(templar`x${templar`y${o => o.a}`}`)(o) -> 'xyabc'",
+      templar(templar`x${templar`y${o => o.a}`}`)(o)
     )
   })
 
   describe("interop nested functions", () => {
     const fn = a => b => c => d => e => f => f.a
     const o = {a: "abc"}
-    _("t7l`${fn}`(o) -> 'abc'", t7l`${fn}`(o))
+    _("templar`${fn}`(o) -> 'abc'", templar`${fn}`(o))
+  })
+
+  describe("templar takes a string", () => {
+    const str = "woot woot im a boot"
+    _("templar(str)() -> str", templar(str)(), str)
+  })
+
+  describe("object can have non string values", () => {
+    const data = {a: 1, b: NaN, c: undefined, d: null, e: false, f: true}
+    const template = templar`a:${o => o.a}|b:${o => o.b}|c:${o => o.c}|d:${o =>
+      o.d}|e:${o => o.e}|f:${o => o.f}`
+    _(
+      "template(data)",
+      template(data),
+      "a:1|b:NaN|c:undefined|d:null|e:false|f:true"
+    )
   })
 })

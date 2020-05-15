@@ -1,26 +1,30 @@
 {
   "name": "@qvvg/templar",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "tagged template literals",
   "author": "James Hunter <github@qv.vg>",
   "license": "MIT",
-  "source": "src/templar.js",
-  "main": "dist/templar.js",
-  "module": "dist/templar.mjs",
-  "unpkg": "dist/templar.umd.js",
+  "main": "dist/templar.cjs.js",
+  "module": "dist/templar.js",
+  "files": ["dist"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orodio/qvvg-templar.git"
+  },
   "jest": {
     "transform": {
       ".js": "jest-esm-transformer"
     }
   },
   "devDependencies": {
-    "jest": "^25.1.0",
-    "jest-esm-transformer": "^1.0.0",
-    "microbundle": "^0.11.0"
+    "jest": "26.0.1",
+    "jest-esm-transformer": "1.0.0",
+    "rollup": "1.20.3",
+    "rollup-plugin-babel-minify": "9.0.0"
   },
   "scripts": {
-    "prepublishOnly": "npm run build",
-    "build": "microbundle",
+    "prepublishOnly": "npm test && npm run build",
+    "build": "rollup -c",
     "dev": "microbundle watch",
     "test": "jest"
   }

@@ -14,11 +14,10 @@ export const interleave = (a = [], b = [], c = []) => {
 
 const recApply = d => arg1 => {
   if (typeof arg1 === "function") return recApply(d)(arg1(d))
-  if (typeof arg1 === "string") return arg1
-  return ""
+  return String(arg1)
 }
 
-export const t7l = (head, ...rest) => {
+export const templar = (head, ...rest) => {
   if (typeof head === "string") return () => head
   if (Array.isArray(head)) {
     return d =>
