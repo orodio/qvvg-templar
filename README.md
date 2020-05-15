@@ -5,9 +5,9 @@
 ## Usage
 
 ```javascript
-import {t7l} from "@qvvg/templar"
+import {templar} from "@qvvg/templar"
 
-const template = t7l`
+const template = templar`
 From: ${o => o.from}
 To: ${o => o.to}
 Message: ${o => o.msg}
@@ -28,19 +28,19 @@ Message: Please pick up your black and white cat.
 ```
 
 ```javascript
-import {t7l} from "@qvvg/templar"
+import {templar} from "@qvvg/templar"
 
-const template1 = t7l`
+const template1 = templar`
 a: ${o => o.a}
 b: ${o => o.b}
 `
 
-const template2 = t7l`
+const template2 = templar`
 x: ${o => o.x}
 y: ${o => o.y}
 `
 
-const template3 = t7l`
+const template3 = templar`
 ${template1}
 ${template2}
 oh hello!
@@ -70,9 +70,9 @@ y: Y
 
 ```javascript
 // gql.js
-import {t7l} from "@qvvg/templar"
+import {templar} from "@qvvg/templar"
 
-export const gql = t7l
+export const gql = templar
 
 export const gqlr = (...args) => (opts = {}) => {
   const params = opts.params || {}
@@ -137,18 +137,18 @@ const param = (key, value) => token => {
 
 const script = (...args) => token => {
   token.type = "script"
-  token.value = t7l(...args)(token.params)
+  token.value = templar(...args)(token.params)
   return token
 }
 
 const query = (...args) => token => {
   token.type = "query"
-  token.value = t7l(...args)(token.parms)
+  token.value = templar(...args)(token.parms)
   return token
 }
 
 const desc = (...args) => token => {
-  token.description = t7l(...args)(token.params)
+  token.description = templar(...args)(token.params)
   return token
 }
 
