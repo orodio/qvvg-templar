@@ -6,7 +6,9 @@
   "license": "MIT",
   "main": "dist/templar.cjs.js",
   "module": "dist/templar.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/orodio/qvvg-templar.git"
